@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Мои билеты{% endblock %}
+
+{% block content %}
+    <h1 class="text-center">Мои билеты</h1>
+    <ul class="list-group">
+        {% for ticket in tickets %}
+        <li class="list-group-item">
+            Ticket for Flight {{ ticket.flight.flight_number }}: 
+            {{ ticket.flight.departure }} → {{ ticket.flight.destination }} on {{ ticket.flight.date|date:"d M Y H:i" }} 
+            (Booked on {{ ticket.purchase_date|date:"d M Y H:i" }})
+        </li>
+        {% empty %}
+        <li class="list-group-item">У вас нет билетов.</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'flights:flight_list' %}" class="btn btn-link mt-3 d-block">Вернуть на страницу с рейсами</a>
+    <a href="{% url 'users:logout' %}" class="btn btn-link mt-3 d-block">Выйти из аккаунта</a>
+
+{% endblock %}

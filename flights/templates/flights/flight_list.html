@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Доступные рейсы{% endblock %}
+
+{% block content %}
+    <h1 class="text-center">Доступные рейсы</h1>
+    <ul class="list-group">
+        {% for flight in flights %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            Flight {{ flight.flight_number }}: 
+            {{ flight.departure }} → {{ flight.destination }} on {{ flight.date|date:"d M Y H:i" }} - ${{ flight.price }}
+            <a href="{% url 'flights:book_ticket' flight.id %}" class="btn btn-success btn-sm">Купить билет</a>
+        </li>
+        {% empty %}
+        <li class="list-group-item">В данный момент нет рейсов</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'flights:my_tickets' %}" class="btn btn-link mt-3 d-block">Посмотреть мои билеты</a>
+    <a href="{% url 'users:logout' %}" class="btn btn-link mt-3 d-block">Выйти из аккаунта</a>
+{% endblock %}
